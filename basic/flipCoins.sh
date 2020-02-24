@@ -11,7 +11,5 @@ do
   		((tail=tail+1))
 	fi
 done
-	echo $head
-	z=$((head / max))
-	res=$((z*100))
-	echo $res
+	echo "scale=2; ($head / $max) * 100" | bc
+ 	echo "scale=2; ($tail / $max) * 100" | bc
