@@ -1,13 +1,19 @@
 function check()
 {
 	array="$1"
-	for (( i=0; i<3; i++));do
-	   if [ ${array[0]} == 0 ]; then
+	for (( i=0; i<3; i++ ));do
+		value=0
+	  for (( j=0; j<3; j++ ));do
+	   if [ ${array[j]} == 0 ]; then
+		((value=value+1))
 		echo "hi"
-	   else 
-		echo "welcome"
+		echo $value
+		if [ $value > 0 ]; then
+			return 1
+	   	fi
 	   fi
+	  done
 	done
 }
-array=(1 2 3 4 5)
+array=(0 2 3 4 5)
 check $array
