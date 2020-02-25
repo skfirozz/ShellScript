@@ -3,11 +3,10 @@ read number
 value=0.0
 for (( i=1; i<= $number; i++ ))
 do
-# value=$((value+1.0 / i ))
-echo "hi"
+ val="1.0 / $i" | bc -l
+echo $val
+#((value=$value + $val))
+echo "value"
 done
-echo $value
-A=333.33
-B=111.11
-C="$B / $A" | bc -l
-echo $c
+echo "hi"
+echo "$((1.2 / 3))"
