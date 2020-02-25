@@ -17,6 +17,6 @@ for (( i=1; i<=$trails; i++ ));do
 	break
    fi 
 done
-echo $wins
-echo $stack
-echo $loss
+echo $wins " wins"
+echo $loss "loss"
+echo $stack "current stack"
