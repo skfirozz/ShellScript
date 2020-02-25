@@ -7,5 +7,5 @@ for ((i=1; i<=$power; i++ ))
 	value=$(( 2**i ))
 	echo $value
 done
-else echo "less"
+else echo "number must be lessthan 31 and greaterthan 0"
 fi
