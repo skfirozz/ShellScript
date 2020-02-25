@@ -1,0 +1,1 @@
+echo "enter a power: "
