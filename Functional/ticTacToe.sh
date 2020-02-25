@@ -4,7 +4,7 @@ function check()
 	for (( i=0; i<3; i++ ));do
 		value=0
 	  for (( j=0; j<3; j++ ));do
-	   if [ ${array[j]} == 0 ]; then
+	   if [ ${array[j]} -eq 0 ]; then
 		((value=value+1))
 		echo "hi"
 		echo $value
@@ -13,7 +13,13 @@ function check()
 	   	fi
 	   fi
 	  done
+		#if $(( value == 3 ));then
+		 #return 2
+		#fi
 	done
 }
+#declare -A array
 array=(0 2 3 4 5)
 check $array
+data=$?
+echo $data
