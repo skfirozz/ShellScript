@@ -1,20 +1,14 @@
-echo "Enter the size of array: "
-read size
-
-arr=(1 2 3 4 5) 
-for i in "${arr[@]}"
+echo "Enter the number of rows: "
+read rows
+echo "Enter the number of columns: "
+read columns
+for (( i=0; i<rows; i++ ))
 do
-   echo $i 
+ for(( j=0; j<columns; j++ ))
+  do
+ echo "enter $i $j: "
+   read array[$i,$j]
+  done
 done
-echo "${arr[@]}"
-echo ${arr[0]}
-echo ${arr[1]}
-echo ${#arr[@]} 
-
- 
-for (( j=0; j<=size; j++ ))
-do 
-echo "enter number :"
-read arra[$j]
-done
-echo ${#arra[2]}
+echo "${array[1,1]}"
+echo "${#array[@]}"
