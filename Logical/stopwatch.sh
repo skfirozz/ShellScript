@@ -1,7 +1,10 @@
-read -p "Enter any key to start time: " start
-now="$(date +"%s%N")"
-echo $now
-read -p "Enter any key to stop time:  " stop
- present="$(date +"%s%N")"
-echo $present
-echo $present-$now
+read -p "Enter any key to start time: " begin
+start="$(date +"%s%N")"
+echo $start
+read -p "Enter any key to stop time:  "  end
+stop="$(date +"%s%N")"
+echo $stop
+ ((result=$start-$stop))
+echo $result
+echo "-----------------------------------------"
+
