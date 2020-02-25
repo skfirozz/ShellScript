@@ -1,6 +1,11 @@
 echo "enter a power: "
 read power
-if [ $((power)) -eq 0 ] ;then
- echo "less"
-else echo "greater"
+if (( $power>0 && $power<31 )) ;then
+ 
+for ((i=1; i<=$power; i++ ))
+ do 
+	value=$(( 2**i ))
+	echo $value
+done
+else echo "less"
 fi
