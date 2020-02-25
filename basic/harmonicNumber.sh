@@ -10,3 +10,6 @@ echo "value"
 done
 echo "hi"
 echo "$((1.2 / 3))"
+echo 'scale=4;20+5/2'
+read inpt 
+echo - | awk -v input=$inpt '{printf("%04.4f \n", input) }'
