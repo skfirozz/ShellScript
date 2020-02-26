@@ -1,13 +1,15 @@
 myFunction(){
-  param1=("${!1}")
-  param2=("${!2}")
-  for i in ${param1[@]};do
-    for j in ${param2[@]};do
-       if [ "${i}" == "${j}" ];then
+  param1=${!1}
+  param2=${!2}
+  for i in ${param1[@]}
+  do
+    for j in ${param2[@]}
+    do
+       if [ "${i}" == "${j}" ]
+       then
            echo ${i}
            echo ${j}
        fi
-	echo "---"
     done
   done
 }
