@@ -51,7 +51,13 @@ check()
         echo "h4"
 #       return 2
    fi
+}
 
+randomNumber()
+{
+	DIFF=$((0-4+1))
+	R=$(($(($RANDOM%$DIFF))+X))
+	return $R
 }
 
 declare -A array
@@ -61,6 +67,11 @@ for (( i=0; i<$number; i++));do
              read array[$i,$j]
         done
 done
+
+
+randomNumber
+val=$?
+echo $val
 
 check array[@]
 
