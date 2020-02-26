@@ -53,13 +53,29 @@ check()
    fi
 }
 
+#-------------------------------------------------------------------------------------------------------------------------------------------
+#-------------------------------------------------------------------------------------------------------------------------------------------
+randomNumber()
+{
+        DIFF=$((0-4+1))
+        R=$(($(($RANDOM%$DIFF))+X))
+	#echo $R
+        return $R
+}
+
+
 declare -A array
 read -p "Enter how many numbers you want: " number
 for (( i=0; i<$number; i++));do
 	for (( j=0;j<$number;j++));do
- 	     read array[$i,$j]
+	     array[$i,$j]=0
 	done
 done
 
-check array[@]
+
+randomNumber
+val=$?
+echo $val
+#check array[@]
+
 
