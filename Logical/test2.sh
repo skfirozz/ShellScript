@@ -64,6 +64,18 @@ randomNumber()
 }
 
 
+systemInputs()
+{
+ for (( i=0; i<3;i++));do
+	for (( j=0;j<3;j++)); do
+	 randomNumber
+	 val=$?
+	echo "$i-------$j----------->$val" 
+	done
+done
+}
+
+
 declare -A array
 read -p "Enter how many numbers you want: " number
 for (( i=0; i<$number; i++));do
@@ -78,4 +90,4 @@ val=$?
 echo $val
 #check array[@]
 
-
+systemInputs
