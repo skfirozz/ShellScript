@@ -1,20 +1,14 @@
 #!/bin/sh
-
 myfunc()
 {
-  echo "\$1 is $1"
-  echo "\$2 is $2"
-  # cannot change $1 - we'd have to say:
-  # 1="Goodbye Cruel"
-  # which is not a valid syntax. However, we can
-  # change $a:
-  a="Goodbye Cruel"
+  input1=$1
+  input2=$2
+  a="hi this is firoz $input1"
+  b="this is akhilesh $input2"
 }
 
-### Main script starts here 
-
-a=Hello
-b=World
+a=hello
+b=banglore
 myfunc $a $b
 echo "a is $a"
 echo "b is $b"
