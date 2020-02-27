@@ -1,12 +1,12 @@
-check()
+function check()
 {
    array="${!1}"
-   for ((i=0;i<3;i++)) ; do
+   for ((x1=0;x1<3;x1++)) ; do
 	count1=0 count2=0
-	for ((j=0; j<3; j++)); do 
-	  if [ "${array[$i,$j]}" -eq 1 ]; then
+	for ((y1=0; y1<3; y1++)); do 
+	  if [ "${array[$x1,$y1]}" -eq 1 ]; then
 	   	((count1=count1+1)) ;fi
-	  if [ "${array[$i,$j]}" -eq 2 ]; then
+	  if [ "${array[$x1,$y1]}" -eq 2 ]; then
 	  	((count2=count2+1)) ;fi
 	done
 
@@ -18,12 +18,12 @@ check()
         	return 2
 	fi
    done
-   for ((j=0;j<3;j++)) ; do
+   for ((x2=0;x2<3;x2++)) ; do
         count1=0 count2=0
-        for ((i=0; i<3; i++)); do 
-        	if [ "${array[$i,$j]}" -eq 1 ]; then
+        for ((y2=0; y2<3; y2++)); do 
+        	if [ "${array[$x2,$y2]}" -eq 1 ]; then
                 	((count1=count1+1)); fi
-          	if [ "${array[$i,$j]}" -eq 2 ]; then
+          	if [ "${array[$x2,$y2]}" -eq 2 ]; then
                 	((count2=count2+1)) ; fi
         done
 
@@ -52,7 +52,7 @@ check()
 }
 #-----------------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------------------
-randomNumber()
+function randomNumber()
 {
         DIFF=$((0-4+1))
         R=$(($(($RANDOM%$DIFF))+X))
@@ -61,7 +61,7 @@ randomNumber()
 
 #-----------------------------------------------------------------------------------------------------------------------------------------
 #-----------------------------------------------------------------------------------------------------------------------------------------
-systemInput()
+function systemInput()
 {
  randomNumber
  row1=$?
@@ -78,7 +78,7 @@ systemInput()
 
 #-------------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------------
-userInputs()
+function userInputs()
 {
  read -p "Enter row number: " row2
  read -p "Enter col number: " col2
@@ -98,7 +98,7 @@ userInputs()
 #--------------------------------------------------------------------------------------------------------------------------------------
 #---------------------------------------------------------------------------------------------------------------------------------------
 
-printBoard()
+function printBoard()
 {
  array="{!$1}"
  for ((i=0;i<3;i++));do
@@ -119,36 +119,23 @@ for (( i=0; i<3; i++));do
 done
 
 
-for (( i=0;i<4;i++)) ; do
+for (( a=0;a<4;a++)) ; do
 	userInputs array[@]
 	if [ $? -eq 1 ] ; then 
-		echo "$r2---$c2"
+#		echo "$r2---$c2"
 		array[$r2,$c2]=2
 	fi
-
-#	check array[@]
-#	checkResult1=$?
-#	echo "$chwckResult1"
-#	if [ "$checkResult1" == 3 ] ; then
-	#	break
-#	 echo " "
-
-#	fi
-
+	check array[@]
+	result=$?
+	echo "--------------$result"
+	if [ $result == 3 ];then 
+		break
+	fi
 	systemInput array[@]
 	if [ $? -eq 2 ] ; then
-		echo "$r1---$c1"
+#		echo "$r1---$c1"
 		array[$r1,$c1]=1
 	fi
-	echo "-------------------"
-#	check array[@]
-   #     checkResult2=$?
-  #      if [ "$checkResult2" != 3 ];then
- #               break
-#	echo " "
- #       fi
-#
-#printBoard array[@]
+	echo "-------------------------------------"
+	printBoard array[@]
 done
-#printBoard array[@]
-
