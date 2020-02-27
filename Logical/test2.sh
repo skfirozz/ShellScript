@@ -1,3 +1,4 @@
+
 check()
 {
    array="${!1}"
@@ -11,7 +12,7 @@ check()
 	done
 
 	if [ $count1 -eq 3 ]; then
-	  echo "*** system  win ***"
+	  echo "*** system win ***"
          return 1
 	 break
 	elif [ $count2 -eq 3 ]; then
@@ -61,8 +62,7 @@ randomNumber()
 {
         DIFF=$((0-4+1))
         R=$(($(($RANDOM%$DIFF))+X))
-	#echo $R
-        return $R
+	return "$R"
 }
 #------------------------------------------------------------------------
 #-------------------------------------------------------------------------
@@ -70,9 +70,11 @@ randomNumber()
 systemInputs()
 {
  randomNumber
- row1=$?  col1=$?
+ row1=$?  
+ randomNumber
+ col1=$?
  arr="${!1}"
- if [ "${arr[$row1,$col1]}" -eq "1"  -o  "${arr[$row1,$col1]}" -eq "2" ] ; then
+ if [ "${arr[$row1,$col1]}" == 1  -o  "${arr[$row1,$col1]}" == 2 ] ; then
         systemInputs
  else
  	echo "$row1----$row2"
@@ -90,7 +92,7 @@ userInputs()
  if [ $row2 -gt 2  -o $col2 -gt 2 ];then 
  echo "*****Enter proper position*****"
     userInputs
- elif [  "${array[$row2,$col2]}" -eq 1 -o  "${array[$row2,$col2]}" -eq 2 ];then
+ elif [  "${array[$row2,$col2]}" == 1 -o  "${array[$row2,$col2]}" == 2 ];then
 	echo "***Position already occupied**** "
  	userInputs
  else
@@ -125,16 +127,14 @@ done
 
 for (( i=0;i<4;i++));do
 	userInputs array[@]
-	result=$?
-	if [ $result -eq 1 ] ; then 
+	if [ $? -eq 1 ] ; then 
 		echo "$r2---$c2"
 		array[$r2,$c2]=2
 	fi
 
 	systemInputs array[@]
-	sysResult=$?
-	if [ $sysResult -eq 2 ] ; then
-		echo "$r1______$c1"
+	#result2=$?
+	if [ $? -eq 2 ] ; then
 		array[$r1,$c1]=1
 	fi
 
@@ -142,4 +142,3 @@ for (( i=0;i<4;i++));do
 done
 
 print array[@]
-
