@@ -11,15 +11,15 @@ check()
 	done
 
 	if [ $count1 -eq 3 ]; then
-	  echo "***win system---------->1***"
+	  echo "*** system  win ***"
+         return 1
 	 break
 	elif [ $count2 -eq 3 ]; then
-	  echo "***you win***--------->1"
+	  echo "*** you win ***"
+          return 2
 	  break 
 	fi
    done
-
-
    for ((j=0;j<3;j++)) ; do
         count1=0 count2=0
         for ((i=0; i<3; i++)); do 
@@ -30,25 +30,27 @@ check()
         done
 
         if [ $count1 -eq 3 ]; then
-          echo "***win system***------->2"
+          echo "*** system win ***"
+         return 1
          break
         elif [ $count2 -eq 3 ]; then
-          echo "***you win***-------->2"
+          echo "*** you win ***"
+	  return 2
           break 
         fi
    done
 
      if [ "${array[0,0]}" == "${array[1,1]}" -a "${array[2,2]}" == 1 ] ; then
-#	echo "h1"
+#	echo "*** system win ***"
 	return 1
    elif [ "${array[0,2]}" == "${array[1,1]}" -a "${array[2,0]}" == 1 ] ; then
-#	echo "h2"
+#	 echo "*** system win ***"
 	return 1
    elif [ "${array[0,0]}" == "${array[1,1]}" -a "${array[2,2]}" == 2 ] ; then
-#	echo "h3"
+#	 echo "*** system win ***"
 	return 2
    elif [ "${array[0,2]}" == "${array[1,1]}" -a "${array[2,0]}" == 2 ] ; then
-#	echo "h4"
+#	 echo "*** system win ***"
        return 2
    fi
 }
@@ -62,40 +64,58 @@ randomNumber()
 	#echo $R
         return $R
 }
-#--------------------------------------------------------------------------------------------------------------------------------------------
-#--------------------------------------------------------------------------------------------------------------------------------------------
+#------------------------------------------------------------------------
+#-------------------------------------------------------------------------
+
 systemInputs()
 {
- for (( i=0; i<3;i++));do
-	for (( j=0;j<3;j++)); do
-	 randomNumber
-	 #val=$?
-	echo "$i-------$j----------->$?" 
-	done
- done
+ randomNumber
+ row1=$?  col1=$?
+ arr="${!1}"
+ if [ "${arr[$row1,$col1]}" -eq "1"  -o  "${arr[$row1,$col1]}" -eq "2" ] ; then
+        systemInputs
+ else
+ 	echo "$row1----$row2"
+ 	r1=$row1 c1=$col1
+ return 2
+ fi
 }
 #-------------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------------
 userInputs()
 {
- read -p "Enter row number: " row
- read -p "Enter col number: " col
+ read -p "Enter row number: " row2
+ read -p "Enter col number: " col2
  matrix="${!1}"
- if [  "${array[$row,$col]}" -eq 1 -o  "${array[$row,$col]}" -eq 2 ];then
+ if [ $row2 -gt 2  -o $col2 -gt 2 ];then 
+ echo "*****Enter proper position*****"
+    userInputs
+ elif [  "${array[$row2,$col2]}" -eq 1 -o  "${array[$row2,$col2]}" -eq 2 ];then
 	echo "***Position already occupied**** "
  	userInputs
  else
- r=$row c=$col
- return 1
- echo "------working fine-------"
+ r2=$row2 c2=$col2
  return 1
  fi
 }
 
+#-------------------------------------------------------------------------
+#--------------------------------------------------------------------------
 
+print()
+{
+ array="{!$1}"
+ for ((i=0;i<3;i++));do
+   for ((j=0;j<3;j++));do
+     printf "${array[$i,$j]} "
+   done
+   echo ""
+ done
+}
 
+#---------------------------------------------------------------------------------
+#----------------------------------------------------------------------------------
 declare -A array
-#read -p "Enter how many numbers you want: " number
 for (( i=0; i<3; i++));do
 	for (( j=0;j<3;j++));do
 	     array[$i,$j]=0
@@ -103,28 +123,23 @@ for (( i=0; i<3; i++));do
 done
 
 
-randomNumber
-val=$?
-#echo $val
-#check array[@]
-
-#systemInputs
 for (( i=0;i<4;i++));do
-userInputs array[@]
-result=$?
-if [ $result -eq 1 ] ; then 
- echo "$r---$c"
- array[$r,$c]=2
-fi
-echo "-------------------"
+	userInputs array[@]
+	result=$?
+	if [ $result -eq 1 ] ; then 
+		echo "$r2---$c2"
+		array[$r2,$c2]=2
+	fi
+
+	systemInputs array[@]
+	sysResult=$?
+	if [ $sysResult -eq 2 ] ; then
+		echo "$r1______$c1"
+		array[$r1,$c1]=1
+	fi
+
+	echo "-------------------"
 done
 
-print()
-{
- array="{!$1}"
-for ((i=0;i<3;i++));do
-  for ((j=0;j<3;j++));do
-   printf "${array[$i,$j]} "
- done
-done
-}
+print array[@]
+
