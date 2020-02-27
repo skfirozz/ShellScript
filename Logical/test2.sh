@@ -39,17 +39,17 @@ check()
    done
 
      if [ "${array[0,0]}" == "${array[1,1]}" -a "${array[2,2]}" == 1 ] ; then
-	echo "h1"
-#	return 1
+#	echo "h1"
+	return 1
    elif [ "${array[0,2]}" == "${array[1,1]}" -a "${array[2,0]}" == 1 ] ; then
-	echo "h2"
-#	return 1
+#	echo "h2"
+	return 1
    elif [ "${array[0,0]}" == "${array[1,1]}" -a "${array[2,2]}" == 2 ] ; then
-	echo "h3"
-#	return 2
+#	echo "h3"
+	return 2
    elif [ "${array[0,2]}" == "${array[1,1]}" -a "${array[2,0]}" == 2 ] ; then
-	echo "h4"
-#       return 2
+#	echo "h4"
+       return 2
    fi
 }
 
@@ -69,18 +69,35 @@ systemInputs()
  for (( i=0; i<3;i++));do
 	for (( j=0;j<3;j++)); do
 	 randomNumber
-	 val=$?
-	echo "$i-------$j----------->$val" 
+	 #val=$?
+	echo "$i-------$j----------->$?" 
 	done
-done
+ done
 }
 #-------------------------------------------------------------------------------------------------------------------------------------------
 #-------------------------------------------------------------------------------------------------------------------------------------------
+userInputs()
+{
+ read -p "Enter row number: " row
+ read -p "Enter col number: " col
+ matrix="${!1}"
+ if [  "${array[$row,$col]}" -eq 1 -o  "${array[$row,$col]}" -eq 2 ];then
+	echo "***Position already occupied**** "
+ 	userInputs
+ else
+ r=$row c=$col
+ return 1
+ echo "------working fine-------"
+ return 1
+ fi
+}
+
+
 
 declare -A array
-read -p "Enter how many numbers you want: " number
-for (( i=0; i<$number; i++));do
-	for (( j=0;j<$number;j++));do
+#read -p "Enter how many numbers you want: " number
+for (( i=0; i<3; i++));do
+	for (( j=0;j<3;j++));do
 	     array[$i,$j]=0
 	done
 done
@@ -88,7 +105,26 @@ done
 
 randomNumber
 val=$?
-echo $val
+#echo $val
 #check array[@]
 
-systemInputs
+#systemInputs
+for (( i=0;i<4;i++));do
+userInputs array[@]
+result=$?
+if [ $result -eq 1 ] ; then 
+ echo "$r---$c"
+ array[$r,$c]=2
+fi
+echo "-------------------"
+done
+
+print()
+{
+ array="{!$1}"
+for ((i=0;i<3;i++));do
+  for ((j=0;j<3;j++));do
+   printf "${array[$i,$j]} "
+ done
+done
+}
