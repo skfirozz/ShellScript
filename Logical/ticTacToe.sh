@@ -63,19 +63,6 @@ function printBoard()
  done
 }
 #----------------------------------------------------------------------------------------------------------------------------------------
-function check2()
-{
- arr="${!$1}"
- check arr[@]
- $val=$?
- if [ $val -eq 11 -o $val -eq 22 ] ; then
-    break
-  fi
-}
-
-
-
-
 declare -A array
 for (( i=0; i<3; i++));do
 	for (( j=0;j<3;j++));do
@@ -98,21 +85,15 @@ for (( a=0;a<4;a++)) ; do
 	if [ $? -eq 2 ] ; then
 		array[$r1,$c1]=1
 	fi
-	echo "--------"
-	printBoard array[@]
 	check array[@]
         result2=$?
         if [ $result2 -eq 11 -o $result2 -eq 22 ] ; then
                 break
         fi
+	printBoard array[@]
+
+	if [ $a -eq 3 ] ; then 
+		echo "---DRAW---"
+	fi
 done
-  	userInputs array[@]
-        if [ $? -eq 1 ] ; then
-                array[$r2,$c2]=2
-        fi
-        check array[@]
-        result3=$?
-        if [[ $(($result3)) != 11 || $(($result3)) != 22 ]] ; then
-                echo "---------DRAW----------"
-        fi
   printBoard array[@]
