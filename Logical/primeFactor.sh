@@ -14,7 +14,6 @@ function primeFactor()
 		fi
 	done
 }
-
 read -p "Enter a number for prime factor: " number
 primeFactor
 echo ""
