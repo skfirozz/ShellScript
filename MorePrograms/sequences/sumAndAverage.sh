@@ -4,11 +4,12 @@ function randomNumber()
 	return $randomNumber
 }
 
-value=0
+sum=0
 for((i=0;i<5;i++));do
 randomNumber
 temp=$?
-echo $temp
-((value=value+temp))
+((sum=sum+temp))
 done
-echo $value
+echo "sum is: $sum"
+((average=sum/5))
+echo "average is : $average"
