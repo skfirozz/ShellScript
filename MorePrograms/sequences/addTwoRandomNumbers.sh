@@ -6,5 +6,7 @@ function randomNumber()
 
 randomNumber
 value1=$?
+randomNumber
 value2=$?
-echo "$value1--$value2"
+((value=value1+value2))
+echo "$value1+$value2-->$value"
