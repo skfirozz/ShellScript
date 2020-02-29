@@ -1,2 +1,3 @@
-DIFF=(0-9+1)
-randomNumber=()
+randomNumber=$(($(($RANDOM%9))+X))
+echo $randomNumber
+echo ""
